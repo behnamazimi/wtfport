@@ -20,6 +20,7 @@
     "build:binary:macos": "npm run build:bundle && pkg dist/cli-bundle.js --targets node18-macos-x64 --output ./bin/wtfport-macos-x64; pkg dist/cli-bundle.js --targets node18-macos-arm64 --output ./bin/wtfport-macos-arm64",
     "build:binary:linux": "npm run build:bundle && pkg dist/cli-bundle.js --targets node18-linux-x64 --output ./bin/wtfport-linux-x64",
     "check-types": "tsc --noEmit",
+    "knip": "knip",
     "format": "prettier --write \"src/**/*.{ts,js,json,md}\" \"*.{ts,js,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,js,json,md}\" \"*.{ts,js,json,md}\"",
     "prepublishOnly": "npm run build:binary"
@@ -45,6 +46,7 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "esbuild": "^0.19.12",
+    "knip": "^5.71.0",
     "pkg": "^5.8.1",
     "prettier": "^3.7.3",
     "typescript": "^5.0.0"

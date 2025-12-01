@@ -2,9 +2,7 @@
 
 A cross-platform CLI tool for monitoring and managing network ports. Provides a terminal UI (TUI) for viewing active ports, killing processes, and managing port usage.
 
-
 ![wtfport TUI Screenshot](./ss.png)
-
 
 ## Installation
 

@@ -2,7 +2,7 @@
  * Keyboard input handler for TUI
  */
 
-export type KeyHandler = (
+type KeyHandler = (
   key: string,
   sequence: string
 ) => void | boolean | Promise<void> | Promise<boolean>;

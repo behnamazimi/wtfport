@@ -60,40 +60,6 @@ export function sortPorts(ports: PortInfo[], sortBy: SortOption): PortInfo[] {
 }
 
 /**
- * Apply all filters to ports
- */
-export function applyFilters(
-  ports: PortInfo[],
-  options: {
-    type?: string;
-    user?: string;
-    process?: string;
-    sort?: SortOption;
-  },
-  processor: PortProcessor
-): PortInfo[] {
-  let filtered = [...ports];
-
-  if (options.type) {
-    filtered = filterByType(filtered, options.type, processor);
-  }
-
-  if (options.user) {
-    filtered = filterByUser(filtered, options.user);
-  }
-
-  if (options.process) {
-    filtered = filterByProcess(filtered, options.process);
-  }
-
-  if (options.sort) {
-    filtered = sortPorts(filtered, options.sort);
-  }
-
-  return filtered;
-}
-
-/**
  * Apply filters to port groups
  */
 export function applyFiltersToGroups(

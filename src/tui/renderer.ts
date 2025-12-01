@@ -183,7 +183,7 @@ export const Styles = {
   hidden: "\x1b[8m",
 } as const;
 
-export type ANSIStyle = (typeof Styles)[keyof typeof Styles];
+type ANSIStyle = (typeof Styles)[keyof typeof Styles];
 
 /**
  * Background colors

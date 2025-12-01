@@ -19,17 +19,3 @@ export function getPlatformAdapter(): PlatformAdapter {
     return new UnixPlatformAdapter();
   }
 }
-
-/**
- * Check if the current platform is Windows
- */
-export function isWindows(): boolean {
-  return process.platform === "win32";
-}
-
-/**
- * Check if the current platform is Unix-like (macOS or Linux)
- */
-export function isUnix(): boolean {
-  return process.platform !== "win32";
-}
