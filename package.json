@@ -45,6 +45,11 @@
     "url": "https://github.com/behnamazimi/wtfport/issues"
   },
   "license": "MIT",
+  "files": [
+    "dist",
+    "ss.png",
+    "README.md"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },
