@@ -35,7 +35,15 @@
     "netstat",
     "cross-platform"
   ],
-  "author": "",
+  "author": "behnamazimi <behnam.azimi@gmail.com>",
+  "homepage": "https://github.com/behnamazimi/wtfport",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/behnamazimi/wtfport.git"
+  },
+  "bugs": {
+    "url": "https://github.com/behnamazimi/wtfport/issues"
+  },
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"

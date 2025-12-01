@@ -6,9 +6,31 @@ A cross-platform CLI tool for monitoring and managing network ports. Provides a 
 
 ## Installation
 
-### Standalone Binary (Recommended)
+### Quick Install (Recommended)
 
-Download the pre-built binary for your platform from [Releases](https://github.com/yourusername/wtfport/releases).
+**macOS and Linux:**
+
+Install with a single command:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/behnamazimi/wtfport/main/install.sh | bash
+```
+
+Or download and run the installer:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/behnamazimi/wtfport/main/install.sh -o install.sh
+chmod +x install.sh
+./install.sh
+```
+
+**Windows:**
+
+For native Windows (PowerShell/CMD), download the `.exe` manually from [Releases](https://github.com/behnamazimi/wtfport/releases).
+
+### Standalone Binary
+
+Download the pre-built binary for your platform from [Releases](https://github.com/behnamazimi/wtfport/releases).
 
 ### npm
 
