@@ -41,7 +41,7 @@ export function setupKeyboardHandlers(
   keyboard: { on: (key: string, handler: () => void | Promise<void>) => void },
   handlers: DashboardHandlers
 ): void {
-  const { getState, setState, getSelectedPort } = handlers;
+  const { getState, setState } = handlers;
 
   // Helper to check if modal is open
   const isModalOpen = (): boolean => {
@@ -274,7 +274,7 @@ async function handleKill(handlers: DashboardHandlers): Promise<void> {
   const selected = handlers.getSelectedPort();
   if (!selected) return;
 
-  const { getState, setState } = handlers;
+  const { setState } = handlers;
 
   // Show loading state
   setState((state) => {
@@ -293,7 +293,6 @@ async function handleKill(handlers: DashboardHandlers): Promise<void> {
       const killMsg = generateKillMessage(selected.port, true, false);
 
       // Check for rank up
-      const previousRank = getCurrentRank(previousStats.totalKills);
       const newRank = getCurrentRank(stats.totalKills);
       const rankUp = checkRankUp(previousStats.totalKills, stats.totalKills);
 
@@ -315,6 +314,9 @@ async function handleKill(handlers: DashboardHandlers): Promise<void> {
           state.killMessageExpiresAt = Date.now() + 5000; // Longer for rank up
         }
       });
+      
+      // Render immediately to show kill message
+      handlers.render();
     } else {
       // Failed kill
       const killMsg = generateKillMessage(selected.port, false, false);
@@ -322,6 +324,9 @@ async function handleKill(handlers: DashboardHandlers): Promise<void> {
         state.killMessage = killMsg;
         state.killMessageExpiresAt = Date.now() + 3000;
       });
+      
+      // Render immediately to show failure message
+      handlers.render();
     }
 
     // Clear cache to force immediate refresh

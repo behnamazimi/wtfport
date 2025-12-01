@@ -1,6 +1,6 @@
 import { PortDetector } from "../port/port-detector.js";
 import { PortProcessor } from "../port/port-processor.js";
-import { KeyboardHandler, Shortcuts } from "./keyboard.js";
+import { KeyboardHandler } from "./keyboard.js";
 import {
   ANSIRenderer,
   Colors,
@@ -22,9 +22,8 @@ import { applyFiltersToGroups, type SortOption } from "../utils/filter-utils.js"
 import { getPlatformAdapter } from "../platform/platform-factory.js";
 import { logger } from "../utils/logger.js";
 import { setupKeyboardHandlers, type DashboardHandlers } from "./dashboard-handlers.js";
-import { generateKillMessage } from "../gamification/kill-messages.js";
-import { recordKill, loadStats, getStatsSummary } from "../gamification/stats.js";
-import { getCurrentRank, formatRank, checkRankUp } from "../gamification/killer-ranks.js";
+import { getCurrentRank, formatRank } from "../gamification/killer-ranks.js";
+import { loadStats } from "../gamification/stats.js";
 
 export interface DashboardState {
   ports: PortInfo[];
@@ -84,10 +83,6 @@ export class Dashboard {
     showDetails: boolean;
   } | null = null;
 
-  // Common dev ports to highlight
-  private readonly commonDevPorts = [
-    3000, 3001, 5173, 4200, 8080, 8081, 8000, 8001, 5000, 4000, 6006, 9229,
-  ];
 
   // Filter options from CLI
   private readonly filterOptions: {
@@ -202,19 +197,6 @@ export class Dashboard {
     };
   }
 
-  /**
-   * Check if any modal is currently open
-   */
-  private isModalOpen(): boolean {
-    return (
-      this.state.showHelp ||
-      this.state.showConfirm ||
-      this.state.showLogs ||
-      this.state.showCommand ||
-      this.state.showStats ||
-      this.state.searching
-    );
-  }
 
   /**
    * Setup keyboard shortcuts
@@ -332,22 +314,6 @@ export class Dashboard {
     return flat;
   }
 
-  /**
-   * Get flat list of all ports (for navigation)
-   */
-  private getFlatPorts(): Array<{ port: PortInfo; group: PortGroup }> {
-    const flat: Array<{ port: PortInfo; group: PortGroup }> = [];
-
-    for (const group of this.state.groups) {
-      if (!group.collapsed) {
-        for (const port of group.ports) {
-          flat.push({ port, group });
-        }
-      }
-    }
-
-    return flat;
-  }
 
   /**
    * Get currently selected port
@@ -363,7 +329,7 @@ export class Dashboard {
   /**
    * Get port color based on type
    */
-  private getPortColor(port: PortInfo): ANSIColor {
+  private getPortColor(_port: PortInfo): ANSIColor {
     return Colors.brightCyan;
   }
 
@@ -390,8 +356,10 @@ export class Dashboard {
 
   /**
    * Handle kill action (no confirmation, like kill $(lsof -t -i:8080))
+   * @deprecated Not currently used
    */
-  private async handleKill(): Promise<void> {
+  // @ts-expect-error - Unused method, kept for potential future use
+  private async _handleKill(): Promise<void> {
     const selected = this.getSelectedPort();
     if (!selected) return;
 
@@ -401,7 +369,7 @@ export class Dashboard {
     this.render();
 
     try {
-      const killed = await killPort(selected.port, false, false);
+      await killPort(selected.port, false, false);
 
       // Clear cache to force immediate refresh
       this.detector.clearCache();
@@ -427,8 +395,10 @@ export class Dashboard {
 
   /**
    * Handle copy action
+   * @deprecated Not currently used
    */
-  private async handleCopy(): Promise<void> {
+  // @ts-expect-error - Unused method, kept for potential future use
+  private async _handleCopy(): Promise<void> {
     const selected = this.getSelectedPort();
     if (!selected) return;
 
@@ -438,8 +408,10 @@ export class Dashboard {
 
   /**
    * Handle view command action
+   * @deprecated Not currently used
    */
-  private async handleViewCommand(): Promise<void> {
+  // @ts-expect-error - Unused method, kept for potential future use
+  private async _handleViewCommand(): Promise<void> {
     const selected = this.getSelectedPort();
     if (!selected) return;
 
@@ -458,8 +430,10 @@ export class Dashboard {
 
   /**
    * Handle view logs action
+   * @deprecated Not currently used
    */
-  private async handleViewLogs(): Promise<void> {
+  // @ts-expect-error - Unused method, kept for potential future use
+  private async _handleViewLogs(): Promise<void> {
     const selected = this.getSelectedPort();
     if (!selected) return;
 
@@ -603,14 +577,6 @@ export class Dashboard {
       return;
     }
 
-    // Check and clear expired kill messages
-    if (this.state.killMessage && this.state.killMessageExpiresAt) {
-      if (Date.now() > this.state.killMessageExpiresAt) {
-        this.state.killMessage = null;
-        this.state.killMessageExpiresAt = null;
-      }
-    }
-
     // For main view, use delta rendering
     const filteredPorts = this.getFilteredPorts();
     const currentState = {
@@ -621,8 +587,20 @@ export class Dashboard {
       showDetails: this.state.showDetails,
     };
 
+    // Check and clear expired kill messages (but only if not rendering immediately)
+    if (this.state.killMessage && this.state.killMessageExpiresAt) {
+      if (Date.now() > this.state.killMessageExpiresAt) {
+        this.state.killMessage = null;
+        this.state.killMessageExpiresAt = null;
+      }
+    }
+
+    // Force full render if there's a kill message (to ensure it's displayed)
+    const hasKillMessage = this.state.killMessage !== null;
+
     // Check if we can use delta rendering
     const canUseDelta =
+      !hasKillMessage &&
       this.previousRenderState !== null &&
       this.previousRenderState.filteredPorts.length === currentState.filteredPorts.length &&
       this.previousRenderState.filter === currentState.filter &&
@@ -650,7 +628,7 @@ export class Dashboard {
     previous: { filteredPorts: Array<{ port: PortInfo; group: PortGroup }>; selectedIndex: number },
     current: { filteredPorts: Array<{ port: PortInfo; group: PortGroup }>; selectedIndex: number }
   ): void {
-    const { width, height } = this.renderer.getScreenSize();
+    const { height } = this.renderer.getScreenSize();
     const maxHeight = height - (this.state.showDetails ? 6 : 4);
 
     // Find changed lines (selection change or port data change)
@@ -713,6 +691,11 @@ export class Dashboard {
       if (selected) {
         this.renderDetails(selected, height);
       }
+    }
+
+    // Render kill message in delta renders too
+    if (this.state.killMessage) {
+      this.renderKillMessage();
     }
 
     this.renderer.render();
@@ -927,7 +910,7 @@ export class Dashboard {
    * Render help screen
    */
   private renderHelp(): void {
-    const { width, height } = this.renderer.getScreenSize();
+    const { height } = this.renderer.getScreenSize();
 
     this.renderer.moveTo(0, 0);
     this.renderer.styled(
@@ -1134,29 +1117,51 @@ export class Dashboard {
     const { width, height } = this.renderer.getScreenSize();
     const msg = this.state.killMessage;
     const emoji = msg.emoji ? `${msg.emoji} ` : "";
-    const message = `${emoji}${msg.message}`;
+    const fullMessage = `${emoji}${msg.message}`;
 
-    // Determine color
-    let color: ANSIColor = Colors.green;
+    // Determine text color - use bright colors for better visibility
+    let textColor: ANSIColor = Colors.brightGreen;
+    let bgColor: string = Backgrounds.blue; // Use blue background for better contrast
+    
     if (msg.color === "red") {
-      color = Colors.red;
+      textColor = Colors.brightWhite;
+      bgColor = Backgrounds.red;
     } else if (msg.color === "yellow") {
-      color = Colors.yellow;
+      textColor = Colors.black;
+      bgColor = Backgrounds.yellow;
     } else if (msg.color === "cyan") {
-      color = Colors.cyan;
+      textColor = Colors.brightWhite;
+      bgColor = Backgrounds.cyan;
+    } else {
+      // Default green - use white text on green background for high contrast
+      textColor = Colors.brightWhite;
+      bgColor = Backgrounds.green;
     }
 
     // Show toast at bottom center (above footer)
     const toastY = height - 3;
-    const messageWidth = Math.min(message.length + 4, width - 4);
+    
+    // Calculate available width (leave margins on both sides)
+    const padding = 2; // Space on each side
+    const maxMessageWidth = width - (padding * 4); // More padding for readability
+    
+    // Truncate message if too long
+    const message = truncate(fullMessage, maxMessageWidth);
+    const messageWithPadding = ` ${message} `;
+    const messageWidth = messageWithPadding.length;
+    
+    // Center the message
     const startX = Math.max(0, Math.floor((width - messageWidth) / 2));
 
-    // Clear the line first
+    // Clear the entire line first
     this.renderer.moveTo(0, toastY);
     this.renderer.clearLine();
 
-    // Render message with background
+    // Render message with background in one go - this ensures proper spacing
     this.renderer.moveTo(startX, toastY);
-    this.renderer.styled(` ${message} `, Styles.bold, color, Backgrounds.brightBlack);
+    this.renderer.styled(messageWithPadding, Styles.bold, textColor, bgColor);
+    
+    // Clear rest of line to ensure no leftover characters
+    this.renderer.clearToEndOfLine();
   }
 }

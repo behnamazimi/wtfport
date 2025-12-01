@@ -5,7 +5,7 @@
 
 import type { PlatformAdapter } from "./platform-adapter.js";
 import type { PortInfo } from "../port/types.js";
-import { spawnProcess, spawnProcessSync } from "../utils/runtime-utils.js";
+import { spawnProcess } from "../utils/runtime-utils.js";
 import { logger } from "../utils/logger.js";
 import { CacheManager } from "./cache-manager.js";
 
@@ -67,7 +67,6 @@ export class UnixPlatformAdapter implements PlatformAdapter {
       const command = parts[0];
       const pid = parseInt(parts[1], 10);
       const user = parts[2];
-      const fd = parts[3];
       const type = parts[4];
       const name = parts.slice(8).join(" ");
 

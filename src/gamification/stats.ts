@@ -3,7 +3,7 @@
  */
 
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs";
-import { join, dirname } from "path";
+import { join } from "path";
 import { homedir } from "os";
 import type { PortInfo } from "../port/types.js";
 import type { KillStats } from "./types.js";

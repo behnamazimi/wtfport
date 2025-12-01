@@ -1,5 +1,3 @@
-import type { PortInfo } from "../port/types.js";
-import { spawnDetached } from "./runtime-utils.js";
 import { getPlatformAdapter } from "../platform/platform-factory.js";
 
 /**

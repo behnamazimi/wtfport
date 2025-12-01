@@ -5,7 +5,7 @@
 
 import type { PlatformAdapter } from "./platform-adapter.js";
 import type { PortInfo } from "../port/types.js";
-import { spawnProcess, spawnProcessSync } from "../utils/runtime-utils.js";
+import { spawnProcess } from "../utils/runtime-utils.js";
 import { dirname } from "path";
 import { logger } from "../utils/logger.js";
 import { CacheManager } from "./cache-manager.js";

@@ -61,13 +61,12 @@ await adapter.killProcess(pid, force);
 For process spawning, use `runtime-utils.ts` functions instead of Node.js `child_process` directly:
 
 ```typescript
-import { spawnProcess, spawnProcessSync } from "./utils/runtime-utils.js";
+import { spawnProcess } from "./utils/runtime-utils.js";
 
 // Async
 const result = await spawnProcess(["command", "args"], { stdout: "pipe" });
 
 // Sync
-const result = spawnProcessSync(["command", "args"]);
 ```
 
 ### 3. Path Handling

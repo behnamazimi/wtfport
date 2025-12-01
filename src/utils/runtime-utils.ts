@@ -154,38 +154,6 @@ export async function spawnProcess(
 }
 
 /**
- * Spawn a process synchronously
- * Uses Node.js child_process.spawnSync
- */
-export function spawnProcessSync(
-  command: string[],
-  options: {
-    stdin?: string;
-    cwd?: string;
-  } = {}
-): {
-  stdout: Buffer;
-  stderr: Buffer;
-  exitCode: number;
-} {
-  // Use Node.js child_process.spawnSync
-  const requireFn = getNodeRequire();
-  const { spawnSync } = requireFn("child_process");
-
-  const proc = spawnSync(command[0], command.slice(1), {
-    input: options.stdin,
-    cwd: options.cwd,
-    encoding: "buffer",
-  });
-
-  return {
-    stdout: proc.stdout || Buffer.alloc(0),
-    stderr: proc.stderr || Buffer.alloc(0),
-    exitCode: proc.status || 0,
-  };
-}
-
-/**
  * Spawn a process with stdin pipe (for interactive processes)
  */
 export async function spawnWithStdin(
@@ -223,25 +191,4 @@ export async function spawnWithStdin(
       reject(error);
     });
   });
-}
-
-/**
- * Spawn a detached process
- */
-export function spawnDetached(
-  command: string[],
-  options: {
-    cwd?: string;
-    stdio?: ("ignore" | "pipe")[];
-  } = {}
-): void {
-  // For Node.js, we need to use require synchronously
-  const requireFn = getNodeRequire();
-  const { spawn } = requireFn("child_process");
-  const proc = spawn(command[0], command.slice(1), {
-    cwd: options.cwd,
-    detached: true,
-    stdio: options.stdio || ["ignore", "ignore", "ignore"],
-  });
-  proc.unref();
 }

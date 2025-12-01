@@ -1,6 +1,5 @@
 import type { PortInfo } from "../port/types.js";
 import { killProcess, getProcessLogs } from "../utils/process-utils.js";
-import { ANSIRenderer, Colors, Styles } from "../tui/renderer.js";
 import { PortDetector } from "../port/port-detector.js";
 import { spawnWithStdin } from "../utils/runtime-utils.js";
 

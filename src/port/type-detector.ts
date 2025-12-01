@@ -4,7 +4,7 @@
  */
 
 import type { PortInfo } from "./types.js";
-import type { TypePreset, TypePresetsConfig } from "./type-presets.js";
+import type { TypePresetsConfig } from "./type-presets.js";
 import { defaultTypePresetsConfig } from "./type-presets.js";
 
 export class TypeDetector {
