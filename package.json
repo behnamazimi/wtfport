@@ -1,6 +1,6 @@
 {
   "name": "kipo",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A CLI tool for monitoring and managing network ports - Kill ports like a boss",
   "type": "module",
   "main": "src/cli.ts",
