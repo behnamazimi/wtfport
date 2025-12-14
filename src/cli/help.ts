@@ -2,10 +2,10 @@
  * Help text for the CLI
  */
 
-export const HELP_TEXT = `wtfport - Terminal TUI for Monitoring and Managing Network Ports
+export const HELP_TEXT = `kipo - Terminal TUI for Monitoring and Managing Network Ports
 
 USAGE:
-  wtfport [command] [options]
+  kipo [command] [options]
 
 COMMANDS:
   kill <port>              Kill process(es) using the specified port
@@ -33,17 +33,17 @@ KILL COMMAND OPTIONS:
 
 EXAMPLES:
   # Launch interactive TUI
-  wtfport
+  kipo
 
   # Launch TUI with filters
-  wtfport --type dev-server
-  wtfport --type "dev-*" --user "j*"
-  wtfport --sort port --type api
+  kipo --type dev-server
+  kipo --type "dev-*" --user "j*"
+  kipo --sort port --type api
 
   # Kill processes
-  wtfport kill 3000
-  wtfport kill --port 3000
-  wtfport kill 3000 --force
+  kipo kill 3000
+  kipo kill --port 3000
+  kipo kill 3000 --force
 
 KEYBOARD SHORTCUTS (TUI Mode):
   Navigation:

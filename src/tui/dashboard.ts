@@ -83,7 +83,6 @@ export class Dashboard {
     showDetails: boolean;
   } | null = null;
 
-
   // Filter options from CLI
   private readonly filterOptions: {
     type?: string;
@@ -196,7 +195,6 @@ export class Dashboard {
       },
     };
   }
-
 
   /**
    * Setup keyboard shortcuts
@@ -313,7 +311,6 @@ export class Dashboard {
 
     return flat;
   }
-
 
   /**
    * Get currently selected port
@@ -709,7 +706,7 @@ export class Dashboard {
     const { width } = this.renderer.getScreenSize();
 
     this.renderer.moveTo(0, 0);
-    this.renderer.styled(" wtfports ", Styles.bold, Colors.white, Backgrounds.blue);
+    this.renderer.styled(" kipo ", Styles.bold, Colors.white, Backgrounds.blue);
     this.renderer.text(" ");
 
     if (this.state.isKilling && this.state.killingPort) {
@@ -1122,7 +1119,7 @@ export class Dashboard {
     // Determine text color - use bright colors for better visibility
     let textColor: ANSIColor = Colors.brightGreen;
     let bgColor: string = Backgrounds.blue; // Use blue background for better contrast
-    
+
     if (msg.color === "red") {
       textColor = Colors.brightWhite;
       bgColor = Backgrounds.red;
@@ -1140,16 +1137,16 @@ export class Dashboard {
 
     // Show toast at bottom center (above footer)
     const toastY = height - 3;
-    
+
     // Calculate available width (leave margins on both sides)
     const padding = 2; // Space on each side
-    const maxMessageWidth = width - (padding * 4); // More padding for readability
-    
+    const maxMessageWidth = width - padding * 4; // More padding for readability
+
     // Truncate message if too long
     const message = truncate(fullMessage, maxMessageWidth);
     const messageWithPadding = ` ${message} `;
     const messageWidth = messageWithPadding.length;
-    
+
     // Center the message
     const startX = Math.max(0, Math.floor((width - messageWidth) / 2));
 
@@ -1160,7 +1157,7 @@ export class Dashboard {
     // Render message with background in one go - this ensures proper spacing
     this.renderer.moveTo(startX, toastY);
     this.renderer.styled(messageWithPadding, Styles.bold, textColor, bgColor);
-    
+
     // Clear rest of line to ensure no leftover characters
     this.renderer.clearToEndOfLine();
   }

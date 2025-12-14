@@ -314,7 +314,7 @@ async function handleKill(handlers: DashboardHandlers): Promise<void> {
           state.killMessageExpiresAt = Date.now() + 5000; // Longer for rank up
         }
       });
-      
+
       // Render immediately to show kill message
       handlers.render();
     } else {
@@ -324,7 +324,7 @@ async function handleKill(handlers: DashboardHandlers): Promise<void> {
         state.killMessage = killMsg;
         state.killMessageExpiresAt = Date.now() + 3000;
       });
-      
+
       // Render immediately to show failure message
       handlers.render();
     }

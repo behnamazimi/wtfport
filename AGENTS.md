@@ -1,10 +1,10 @@
 # AGENTS.md - Codebase Guide for AI Assistants
 
-This document provides essential information for AI agents working with the wtfport codebase.
+This document provides essential information for AI agents working with the kipo codebase.
 
 ## Project Overview
 
-**wtfport** is a cross-platform CLI tool for monitoring and managing network ports. It provides a terminal UI (TUI) for viewing active ports, killing processes, and managing port usage.
+**kipo** is a cross-platform CLI tool for monitoring and managing network ports. It provides a terminal UI (TUI) for viewing active ports, killing processes, and managing port usage.
 
 ## Architecture
 
@@ -152,7 +152,7 @@ Binaries are output to `bin/` directory.
 ### Package Distribution
 
 - **npm**: Uses `package.json` `bin` field
-- **Homebrew**: Uses `wtfport.rb` formula
+- **Homebrew**: Uses `kipo.rb` formula
 - **Standalone**: Direct binary download from releases
 
 ## Testing Considerations

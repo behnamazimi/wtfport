@@ -1,8 +1,8 @@
-# wtfport
+# kipo
 
 A cross-platform CLI tool for monitoring and managing network ports. Provides a terminal UI (TUI) for viewing active ports, killing processes, and managing port usage.
 
-![wtfport TUI Screenshot](./ss.png)
+![kipo TUI Screenshot](./ss.png)
 
 ## Installation
 
@@ -13,29 +13,29 @@ A cross-platform CLI tool for monitoring and managing network ports. Provides a 
 Install with a single command:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/behnamazimi/wtfport/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/behnamazimi/kipo/main/install.sh | bash
 ```
 
 Or download and run the installer:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/behnamazimi/wtfport/main/install.sh -o install.sh
+curl -fsSL https://raw.githubusercontent.com/behnamazimi/kipo/main/install.sh -o install.sh
 chmod +x install.sh
 ./install.sh
 ```
 
 **Windows:**
 
-For native Windows (PowerShell/CMD), download the `.exe` manually from [Releases](https://github.com/behnamazimi/wtfport/releases).
+For native Windows (PowerShell/CMD), download the `.exe` manually from [Releases](https://github.com/behnamazimi/kipo/releases).
 
 ### Standalone Binary
 
-Download the pre-built binary for your platform from [Releases](https://github.com/behnamazimi/wtfport/releases).
+Download the pre-built binary for your platform from [Releases](https://github.com/behnamazimi/kipo/releases).
 
 ### npm
 
 ```bash
-npm install -g wtfport
+npm install -g kipo
 ```
 
 ### From Source
@@ -43,7 +43,7 @@ npm install -g wtfport
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd wtfport
+cd kipo
 
 # Install dependencies
 npm install
@@ -64,7 +64,7 @@ node dist/cli.js    # Production with Node.js
 Launch the terminal UI:
 
 ```bash
-wtfport
+kipo
 ```
 
 ### Command Line Mode
@@ -72,16 +72,16 @@ wtfport
 Kill a process on a specific port:
 
 ```bash
-wtfport kill 3000
-wtfport kill --port 3000 --force
+kipo kill 3000
+kipo kill --port 3000 --force
 ```
 
 Filter and sort:
 
 ```bash
-wtfport --type dev-server
-wtfport --type "dev-*" --user "j*"
-wtfport --sort port --type api
+kipo --type dev-server
+kipo --type "dev-*" --user "j*"
+kipo --sort port --type api
 ```
 
 ### Keyboard Shortcuts (TUI Mode)

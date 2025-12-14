@@ -90,8 +90,8 @@ async function handleKillCommand(
 ): Promise<void> {
   if (!portArg) {
     console.error("Error: Port number required");
-    console.log("Usage: wtfport kill <port>");
-    console.log("   or: wtfport kill --port <port>");
+    console.log("Usage: kipo kill <port>");
+    console.log("   or: kipo kill --port <port>");
     process.exit(1);
   }
 
@@ -134,7 +134,7 @@ async function main() {
 
   // Handle version
   if (parsed.options.version) {
-    console.log("wtfport v0.1.0");
+    console.log("kipo v0.1.0");
     return;
   }
 

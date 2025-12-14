@@ -1,11 +1,11 @@
 {
-  "name": "wtfport",
+  "name": "kipo",
   "version": "0.2.1",
   "description": "A CLI tool for monitoring and managing network ports - Kill ports like a boss",
   "type": "module",
   "main": "src/cli.ts",
   "bin": {
-    "wtfport": "./dist/cli.js"
+    "kipo": "./dist/cli.js"
   },
   "scripts": {
     "clean": "rm -rf dist",
@@ -16,9 +16,9 @@
     "build:bundle": "esbuild src/cli.ts --bundle --platform=node --target=node18 --format=cjs --outfile=dist/cli-bundle.js --external:minimatch --packages=external",
     "build:binary": "npm run build:binary:all",
     "build:binary:all": "npm run build:binary:win && npm run build:binary:macos && npm run build:binary:linux",
-    "build:binary:win": "npm run build:bundle && pkg dist/cli-bundle.js --targets node18-win-x64 --output ./bin/wtfport-win-x64.exe",
-    "build:binary:macos": "npm run build:bundle && pkg dist/cli-bundle.js --targets node18-macos-x64 --output ./bin/wtfport-macos-x64; pkg dist/cli-bundle.js --targets node18-macos-arm64 --output ./bin/wtfport-macos-arm64",
-    "build:binary:linux": "npm run build:bundle && pkg dist/cli-bundle.js --targets node18-linux-x64 --output ./bin/wtfport-linux-x64",
+    "build:binary:win": "npm run build:bundle && pkg dist/cli-bundle.js --targets node18-win-x64 --output ./bin/kipo-win-x64.exe",
+    "build:binary:macos": "npm run build:bundle && pkg dist/cli-bundle.js --targets node18-macos-x64 --output ./bin/kipo-macos-x64; pkg dist/cli-bundle.js --targets node18-macos-arm64 --output ./bin/kipo-macos-arm64",
+    "build:binary:linux": "npm run build:bundle && pkg dist/cli-bundle.js --targets node18-linux-x64 --output ./bin/kipo-linux-x64",
     "check-types": "tsc --noEmit",
     "knip": "knip",
     "format": "prettier --write \"src/**/*.{ts,js,json,md}\" \"*.{ts,js,json,md}\"",
@@ -36,13 +36,13 @@
     "cross-platform"
   ],
   "author": "behnamazimi <behnam.azimi@gmail.com>",
-  "homepage": "https://github.com/behnamazimi/wtfport",
+  "homepage": "https://github.com/behnamazimi/kipo",
   "repository": {
     "type": "git",
-    "url": "https://github.com/behnamazimi/wtfport.git"
+    "url": "https://github.com/behnamazimi/kipo.git"
   },
   "bugs": {
-    "url": "https://github.com/behnamazimi/wtfport/issues"
+    "url": "https://github.com/behnamazimi/kipo/issues"
   },
   "license": "MIT",
   "files": [

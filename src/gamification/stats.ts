@@ -8,7 +8,7 @@ import { homedir } from "os";
 import type { PortInfo } from "../port/types.js";
 import type { KillStats } from "./types.js";
 
-const STATS_DIR = join(homedir(), ".wtfport");
+const STATS_DIR = join(homedir(), ".kipo");
 const STATS_FILE = join(STATS_DIR, "stats.json");
 
 /**
